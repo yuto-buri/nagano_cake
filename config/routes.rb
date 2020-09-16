@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :customers, controllers: {
+    registrations: 'customers/registrations',
+    passwords: 'customers/passwords',
+    sessions: 'customers/sessions'}
+
+    resources :customers, only: [:edit, :show, :update]
+
+    
   namespace :admins do
     get 'searches/search'
   end
@@ -37,7 +45,6 @@ Rails.application.routes.draw do
   get 'cart_items/index'
   get 'addresses/edit'
   get 'addresses/index'
-  devise_for :customers
   devise_for :admins
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
