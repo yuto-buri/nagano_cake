@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
     resources :customers, only: [:edit, :show, :update]
 
-    
+  root 'home#top' 
+  get 'home/about'
+
   namespace :admins do
     get 'searches/search'
   end
