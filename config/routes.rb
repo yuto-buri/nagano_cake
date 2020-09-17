@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :admins do
+    get 'homes/top'
+  end
   devise_for :customers, controllers: {
     registrations: 'customers/registrations',
     passwords: 'customers/passwords',
