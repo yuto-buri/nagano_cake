@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   def index
+    @items_count = Item.all
+    @search_genres = Genre.all
   	@genres = Genre.where(is_enabled: true)# ジャンルが有効のみ
   	# もしURLに[:genre_id]が含まれていたら
     if params[:genre_id]

@@ -1,0 +1,21 @@
+
+<!-- genres/indexから　トップページ、商品一覧、商品詳細で呼び出す予定 -->
+		<div class="col-sm-3">
+			<div class="panel panel-default">
+			  <div class="panel-heading text-center">
+			  	<h3 class="panel-title">ジャンル検索</h3>
+			  </div>
+				  <% @search_genres.each do |genre| %>
+					  <div class="panel-body">
+						   <%= link_to genre.name, items_index(genre) %>
+							<!-- items#indexのコメントを参考にした -->
+					  </div>
+				  <% end %>
+			</div>
+		</div>
+<!-- genres/indexから　トップページ、商品一覧、商品詳細で呼び出す予定 -->
+<div class="col-sm-9">
+	<div class="bg-success">
+		<p>ようこそNaganoCakeへ！</p>
+	</div>
+</div>
