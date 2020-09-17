@@ -5,14 +5,21 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    @customer = Customer.new
+  end
 
-  # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    @customer = Customer.new(sign_up_params)
+    unless @customer.valid?
+      flash.now[:alert] = @customer.errors.full_messages
+      render "devise/registrations/new" and return
+    end
+    @customer[:is_deleted] = false
+    @customer.save
+    sign_in(:customer, @customer)
+    redirect_to root_path
+  end
 
   # GET /resource/edit
   # def edit

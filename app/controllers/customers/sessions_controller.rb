@@ -2,6 +2,7 @@
 
 class Customers::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  before_action :reject_customer, only: [:create]
 
   # GET /resource/sign_in
   # def new
@@ -20,8 +21,20 @@ class Customers::SessionsController < Devise::SessionsController
 
   protected
 
+  def reject_customer
+    @customer = Customer.find_by(email: params[:customer][:email].downcase)
+    if @customer
+      if (@customer.valid_password?(params[:customer][:password]) && (@customer.active_for_authentication? == false))
+        flash[:error] = "退会済みです。"
+        redirect_to new_customer_session_path
+      end
+    else
+      flash[:error] = "必須項目を入力してください。"
+    end
+  end
+
   def after_sign_in_path_for(resource)
-    customer_path(resource)
+    customers_path(resource)
   end
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
