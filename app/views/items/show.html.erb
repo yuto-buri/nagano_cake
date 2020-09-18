@@ -1,2 +1,19 @@
-<h1>Items#show</h1>
-<p>Find me in app/views/items/show.html.erb</p>
+<% @search_genres.each do |genre| %>
+	<div class="panel-body">
+		<%= link_to genre.name, items_path(genre) %>
+	</div>
+<% end %>
+
+<div class="row">
+	
+		<div class="col-3 mt-3"> <!--ひとつのブロックをラップしてカラムを指定する-->
+			<%= link_to item_path(@item) do %><!--それをeach文で回す-->
+			<%= attachment_image_tag @item, :image, size: "150x150", format: 'jpeg', fallback: "no_image.jpg", class: 'rounded' %>
+			<% end %>
+			<br>
+			<strong class="red-border"><%= link_to @item.name, item_path(@item) %></strong>
+			<br>
+			<span class="ml-auto">¥<%= (@item.price * 1.1).floor %> (税込)</span><br>
+		</div>
+	
+</div>
