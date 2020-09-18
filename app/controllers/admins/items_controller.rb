@@ -5,12 +5,11 @@ class Admins::ItemsController < ApplicationController
   end
 
   def index
-    @items = Item.all
+    @items = Item.page(params[:page]).per(10)
   end
 
   def new
     @item = Item.new
-    @genres = Genre.all
   end
 
   def show
@@ -18,13 +17,19 @@ class Admins::ItemsController < ApplicationController
   end
 
   def create
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to admins_items_path
+    else
+      redirect_to new_admins_item_path
+    end
   end
 
   def update
   end
 
   private
-  def product_params
-    params.require(:item).permit(:image_id,:name,:introduction,:genre_id,:price,:is_active)
+  def item_params
+    params.require(:item).permit(:image,:name,:introduction,:genre_id,:price,:is_active)
   end
 end
