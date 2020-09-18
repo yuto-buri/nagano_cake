@@ -1,6 +1,6 @@
-
+<div class="row">
 <!-- genres/indexから　トップページ、商品一覧、商品詳細で呼び出す予定 -->
-		<div class="col-sm-3">
+		<div class="col-lg-3">
 			<div class="panel panel-default">
 			  <div class="panel-heading text-center">
 			  	<h3 class="panel-title">ジャンル検索</h3>
@@ -14,8 +14,20 @@
 			</div>
 		</div>
 <!-- genres/indexから　トップページ、商品一覧、商品詳細で呼び出す予定 -->
-<div class="col-sm-9">
-	<div class="bg-success">
-		<p>ようこそNaganoCakeへ！</p>
+	<div class="col-lg-6">
+		<div class="bg-success">
+			<p>ようこそNaganoCakeへ！<br>
+				このサイトは、ケーキ販売のECサイトになります。<br>
+				会員でない方も商品の閲覧はできますが、<br>
+				購入には会員登録が必要になります。
+			</p>
+		</div>
+		<h3>オススメ商品</h3>
+		<% @items.each do |item| %>
+		<%= item.image_id  %>
+		<%= item.name %>
+		<%= item.price %>
+		<% end %>
 	</div>
 </div>
+
