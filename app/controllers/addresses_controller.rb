@@ -1,22 +1,28 @@
 class AddressesController < ApplicationController
   def edit
-  	address = Address.find(params[:id])
+  	@address = Address.find(params[:id])
   end
 
   def index
     @address = Address.new
-  	  end
+    @addresses = Address.all
+  end
 
   def create
-  	@address = Address.new(address_params)
-    @address.save
-    redirect_to root_path
+  	address = Address.new(address_params)
+    address.save
+    render 'index'
   end
 
   def update
-  	address = Address.find(params[:id])
-  	address.update(address_params)
-  	redirect_to
+  	   @address = Address.find(params[:id])
+  	if @address.update(address_params)
+  	   redirect_to customers_addresses_path
+    else
+       @address = Address.find(params[:id])
+       render 'edit'
+       
+    end
   end
 
   def destroy
@@ -27,6 +33,7 @@ class AddressesController < ApplicationController
 
   private
   def address_params
-  	params.require(:address).permit(:customer_id,:name,:postal_code,:address)
+  	params.require(:address).permit(:customer_id,:name,:postal_code,:delivery)
   end
 end
+

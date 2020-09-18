@@ -1,13 +1,33 @@
 <p>配送先登録/一覧</p>
-<%= form_for(@address) do |f| %>
+<%= form_for(customers_addresses_path) do |f| %>
 <p>郵便番号（ハイフンなし）</p> <%= f.text_field :postal_code %>
-<p>住所</p> <%= f.text_field :address %>
+<p>住所</p> <%= f.text_field :delivery %>
 <p>宛名</p> <%= f.text_field :name %>
 <%= f.submit '登録する' %>
 <% end %>
 
-
-
+<% if @addresses.present? %>
+<% @addresses.each do |address| %>
+<table class = "table">
+	<thead>
+		<tr>
+			<th>郵便番号</th>
+			<th>住所</th>
+			<th>宛名</th>
+			<th colspan="1"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><%= address.postal_code %></td>
+			<td><%= address.delivery %></td>
+			<td><%= address.name %></td>
+			<td><%= link_to '編集する', edit_customers_address_path(address) %></td>
+		</tr>
+	</tbody>
+</table>
+<% end %>
+<% end %>
 
 
 
