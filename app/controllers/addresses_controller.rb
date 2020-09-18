@@ -4,11 +4,13 @@ class AddressesController < ApplicationController
   end
 
   def index
-  	@addresses = Address.all
-  end
+    @address = Address.new
+  	  end
 
   def create
-  	address = Address.new(address_params)
+  	@address = Address.new(address_params)
+    @address.save
+    redirect_to root_path
   end
 
   def update
