@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     get 'searches/search'
     resources :items, only:[:index,:create, :new, :edit, :show, :update]
     resources :orders, only:[:index, :create, :show, :update]
-    resources :genres, only:[:index, :create, :show, :update]
+    resources :genres, only:[:index, :create, :edit, :update]
     resources :customers, only:[:index, :edit, :show, :update]
     resources :order_details, only:[:index, :create, :show, :update]
   end
