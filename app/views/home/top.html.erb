@@ -7,7 +7,7 @@
 			  </div>
 				  <% @search_genres.each do |genre| %>
 					  <div class="panel-body">
-						   <%= link_to genre.name, items_index(genre) %>
+						   <%= link_to genre.name, items_path(genre) %>
 							<!-- items#indexのコメントを参考にした -->
 					  </div>
 				  <% end %>
