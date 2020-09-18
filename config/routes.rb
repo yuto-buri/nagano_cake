@@ -3,7 +3,9 @@ Rails.application.routes.draw do
     get 'homes/top'
   end
 
-  resource :customers, only: [:show, :edit, :update]
+  resource :customers, only: [:show, :edit, :update] do
+    resources :addresses, only: [:index, :create, :edit, :update, :destroy]
+  end
 
   devise_for :customers, controllers: {
     registrations: 'customers/registrations',
@@ -34,7 +36,7 @@ Rails.application.routes.draw do
   resources :orders, only: [:new, :index, :create, :show]
   post 'orders/confirm' => 'orders#confirm', as: 'order_confirm'
   get 'orders/conplete' => 'orders#conplete', as: 'order_conplete'
-  resources :addresses, only: [:index, :create, :edit, :update, :destroy]
+  
   get 'order_details/index'
   resources :genres, only: [:index, :show]
 
