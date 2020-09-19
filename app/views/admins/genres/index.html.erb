@@ -18,13 +18,13 @@
 			<br>
 			<!-- new genre form -->
 			<div class="new-genre-form">
-				<%= form_for(@genre, url:admins_genres_path) do |f| %>
+				<%= form_for(@genre, url:admins_genres_path(@genre)) do |f| %>
 					<%= f.label :name, "ジャンル" %>
 					<%= f.text_field :name %>
-					<%= f.label :name, "有効" %>
-					<%= f.radio_button :is_active, :"有効", checked: true %>
-					<%= f.label :name, "無効" %>
-					<%= f.radio_button :is_active, :"無効", checked: false %>
+			        <%= f.label :name, "有効" %>
+			        <%= f.radio_button :is_active, :true %>
+			        <%= f.label :name, "無効" %>
+			        <%= f.radio_button :is_active, :false %>
 					<%= f.submit '追加', class:"btn btn-primary" %>
 				<% end %>
 			</div>
