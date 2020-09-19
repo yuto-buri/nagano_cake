@@ -23,4 +23,6 @@ class ItemsController < ApplicationController
   	@genres = Genre.all
   	@item = Item.find(params[:id])
   end
+
+    
 end
