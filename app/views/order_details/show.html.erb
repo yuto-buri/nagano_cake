@@ -23,10 +23,12 @@
 				<td><%= (@item.price * 1.1).floor %></td>
 				<td><%= @order.amount %></td>
 				<td><%= (@item.price * 1.1).floor * @order.amount %></td>
-				<td><%= f.select :status, [[""]]%></td>
+				<td><%= f.select :making_status, [[""]]%></td>
 				<td><%= f.submit '更新' %></td>
 			</tr>
 		</tbody>
 	</table>
 <% end %>
 
+<%= f.label :販売ステータス, class: "col-sm-4" %>
+<%= f.select :is_active, [["販売中",true] , ["販売停止中",false]], class: "form-control col-sm-8" %>
