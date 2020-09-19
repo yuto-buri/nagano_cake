@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     passwords: 'customers/passwords',
     sessions: 'customers/sessions'}
 
-  root 'home#top'
-  get 'home/about'
+  root 'homes#top'
+  get 'homes/about'
 
   namespace :admins do
     get 'searches/search'
@@ -38,7 +38,10 @@ Rails.application.routes.draw do
   get 'orders/conplete' => 'orders#conplete', as: 'order_conplete'
   
   get 'order_details/index'
-  resources :genres, only: [:index, :show]
+  
+  resources :genres, only: [:index, :show] do
+    resources :items, only: [:index, :show]
+  end
 
   devise_for :admins, controllers: {
     registrations: 'admins/registrations',

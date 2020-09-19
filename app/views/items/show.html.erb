@@ -1,15 +1,4 @@
-<div class="col-sm-3">
-	<div class="panel panel-default">
-		<div class="panel-heading text-center">
-			<h3 class = "panel-title">ジャンル検索</h3>
-		</div>
-			<% @search_genres.each do |genre| %>
-				<div class="panel-body">
-					<%= link_to genre.name, items_path(genre) %>
-				</div>
-			<% end %>
-	</div>
-</div>
+<%= render 'genrebox', genres: @genres %>
 
 <div class="col-sm-9">
 	<%= link_to item_path(@item) do %>
@@ -20,7 +9,7 @@
 	<br>
 	<p><%= @item.introduction %></p>
 	<span class="ml-auto">¥<%= (@item.price * 1.1).floor %> (税込)</span><br>
-	<%= form_for(cart_items_path)  do |f| %>
+	<%= form_with(model: [@item, @cart_item], local: true, url: {controller: 'cart_items', action: 'create'}) do |f| %>
 	    <%= f.select :amount, [["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"]], include_blank: "個数選択" %>
 		<%= f.submit 'カートに入れる'%>
   	<% end %>
