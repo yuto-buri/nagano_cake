@@ -11,7 +11,7 @@
             <td>顧客ID</td>
             <td class="col-xs-10">
               <%= @customer.id %>
-              <% if @customer.is_deleted == "validity" %>
+              <% if @customer.is_deleted == false %>
                 <span class="label label-primary admittion_status_label">有効会員</span>
               <% else %>
                 <span class="label label-danger admittion_status_label">退会済み会員</span>

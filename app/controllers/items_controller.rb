@@ -1,8 +1,6 @@
 class ItemsController < ApplicationController
   def index
-    @items_count = Item.all
-    @search_genres = Genre.all
-  	@genres = Genre.where(is_enabled: true)# ジャンルが有効のみ
+  	@genres = Genre.where(is_active: true)# ジャンルが有効のみ
   	# もしURLに[:genre_id]が含まれていたら
     if params[:genre_id]
       # その[:genre_id]のデータをGenreから@genreに格納
@@ -11,18 +9,14 @@ class ItemsController < ApplicationController
       @items = @genre.items.order(created_at: :desc).where(is_active: "販売中").page(params[:page]).per(8)
       # 含まれていなければ
     else
-      @items = Item.where(is_active: "販売中").page(params[:page]).per(12)
+      @items = Item.where(is_active: "販売中").page(params[:page]).per(8)
      # 販売ステータスが販売可のみの商品を参照 ジャンル作成の昇順
     end
   end
 
   def show
-    @items_count = Item.all
-    @search_genres = Genre.all
-  	@cart_item = CartItem.new
-  	@genres = Genre.all
-  	@item = Item.find(params[:id])
+    @item = Item.find(params[:id])
+  	@cart_item = @item.cart_items.build
+    @genres = Genre.where(is_active: true)# ジャンルが有効のみ
   end
-
-    
 end

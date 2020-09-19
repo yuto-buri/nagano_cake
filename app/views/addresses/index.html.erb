@@ -1,5 +1,5 @@
 <p>配送先登録/一覧</p>
-<%= form_for(customers_addresses_path) do |f| %>
+<%= form_with(model: @address, url: customers_addresses_path) do |f| %>
 <p>郵便番号（ハイフンなし）</p> <%= f.text_field :postal_code %>
 <p>住所</p> <%= f.text_field :delivery %>
 <p>宛名</p> <%= f.text_field :name %>

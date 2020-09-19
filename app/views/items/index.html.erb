@@ -1,25 +1,20 @@
 		<!-- genres/indexから　トップページ、商品一覧、商品詳細で呼び出す予定 -->
-		<div class="col-sm-3">
-			<div class="panel panel-default">
-			  <div class="panel-heading text-center">
-			  	<h3 class="panel-title">ジャンル検索</h3>
-			  </div>
-				  <% @search_genres.each do |genre| %>
-					  <div class="panel-body">
-						   <%= link_to genre.name, items_path(genre) %>
-					  </div>
-				  <% end %>
-			</div>
-		</div>
+		<%= render 'genrebox', genres: @genres %>
 		<!-- genres/indexから　トップページ、商品一覧、商品詳細で呼び出す予定 -->
 <div class="col-sm-9">
 	<div class="page-header m-0">
-	<h1>商品一覧 <small>(全<%= @items_count.count %>件)</small></h1>
+	<h1>
+		<% if params[:genre_id] %>
+            <%= @genre.name %>一覧
+          <% else %>
+            商品一覧
+          <% end %> <small>(全<%= @items.count %>件)</small></h1>
 </div>
 
-<div class="row">
+<div class="container">
+	<div class="col-sm-9">
 	<% @items.each do |item| %>
-		<div class="col-3 mt-3"> <!--ひとつのブロックをラップしてカラムを指定する-->
+		<div class="col-xs-3 mt-3"> <!--ひとつのブロックをラップしてカラムを指定する-->
 			<%= link_to item_path(item) do %><!--それをeach文で回す-->
 			<%= attachment_image_tag item, :image, size: "150x150", format: 'jpeg', fallback: "no_image.jpg", class: 'rounded' %>
 			<% end %>
@@ -29,5 +24,6 @@
 			<span class="ml-auto">¥<%= (item.price * 1.1).floor %></span><br>
 		</div>
 	<% end %>
+</div>
 </div>
 <!-- items#indexのコメントを参考に、ジャンルごとの商品の情報を持ってくる -->
