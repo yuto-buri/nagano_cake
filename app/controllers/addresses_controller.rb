@@ -4,12 +4,13 @@ class AddressesController < ApplicationController
   end
 
   def index
-    @address = Address.new
     @addresses = Address.all
+    
   end
 
   def create
   	address = Address.new(address_params)
+    address.customer_id = current_customer.id
     address.save
     render 'index'
   end
@@ -33,7 +34,7 @@ class AddressesController < ApplicationController
 
   private
   def address_params
-  	params.require(:address).permit(:customer_id,:name,:postal_code,:delivery)
+  	params.require(:address).permit(:customer_id, :name,:postal_code,:delivery)
   end
 end
 
