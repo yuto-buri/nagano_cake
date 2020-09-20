@@ -22,17 +22,11 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    binding.pry
-    @cart_item = CartItem.new(cart_item_params)
-    @cart_item.customer_id = current_customer.id
-    @cart_item.item_id = 
-    @validate_into_cart = @cart_item.validate_into_cart
-    if @validate_into_cart == false
-       flash[:into_cart_error] = "個数が選択されていないか、すでにカートに追加されているアイテムです。"
-       redirect_to item_path(params[:cart_item][:item_id])
-    else
-      @cart_item.save
+    @cart_item = current_customer.cart_items.new(cart_item_params)
+    if @cart_item.save
       redirect_to cart_items_path
+    else
+      redirect_to items_path
     end
   end
 

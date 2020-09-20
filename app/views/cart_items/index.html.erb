@@ -5,7 +5,7 @@
       </div>
 
       <div class= "text-right">
-        <%= link_to "カートを空にする", cart_items_path, method: :delete, class: "btn btn-sm btn-danger" %>
+        <%= link_to "カートを空にする", destroy_all_cart_items_path, method: :delete, class: "btn btn-sm btn-danger" %>
       </div>
     </div>
 
@@ -26,7 +26,7 @@
             <tbody>
               <tr>
                 <td class="align-middle">
-                  <%= attachment_image_tag cart_item.item, :image, size: "50x50", fallback: "img/no-image.jpg" %>
+                  <%= attachment_image_tag cart_item.item, :image, size: "50x50", fallback: "img/no-image.png" %>
                   <span><%= cart_item.item.name %></span>
                 </td>
                 <td class="align-middle"><%= (cart_item.item.price * 1.1).floor %></td>
