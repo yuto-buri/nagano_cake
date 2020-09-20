@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
 
   def new
-    @address = current_customer.addresses
-    @address = Address.new
+    @address = Address.where(customer_id:current_customer.id)
+    @my_address = @address(current_customer)
     @order = Order.new
   end
 
