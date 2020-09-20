@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   end
   
   post 'orders/confirm' => 'orders#confirm', as: 'order_confirm'
-  get 'orders/conplete' => 'orders#conplete', as: 'order_conplete'
+  get 'orders/complete' => 'orders#complete', as: 'order_complete'
 
   get 'order_details/index'
 

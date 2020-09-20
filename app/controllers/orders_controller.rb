@@ -2,39 +2,30 @@ class OrdersController < ApplicationController
 
   def new
     @address = Address.where(customer_id:current_customer.id)
-    @my_address = @address(current_customer)
+    @my_address = Customer.find(current_customer.id)
     @order = Order.new
   end
 
   def confirm
-    @orders = current_customer.orders
-      @total_price = calculate(current_customer)
-
-      if  session[:address].length <8
-        @address = ShipAddress.find(session[:address])
-      end
+    @new = params[:order][:new_address][:postal_code]
   end
 
   def complete
   end
 
   def create
-    @order = Order.new(order_params) #初期化代入
-    @order.customer_id = current_customer.id #自身のidを代入
-    @order.save #orderに保存
-
-    #order_itmemの保存
-    current_customer.cart_items.each do |cart_item| #カートの商品を1つずつ取り出しループ
-      @order_detail = OrderItem.new #初期化宣言
-      @order_detail.item_id = cart_item.item_id #商品idを注文商品idに代入
-      @order_detail.amount = cart_item.amount #商品の個数を注文商品の個数に代入
-      @order_detail.items_tax_included_price = (cart_item.item.unit_price_without_tax*1.1).floor #消費税込みに計算して代入
-      @order_detail.order_id =  @order.id #注文商品に注文idを紐付け
-      @order_detail.save #注文商品を保存
-    end #ループ終わり
-
-    current_customer.cart_items.destroy_all #カートの中身を削除
-    redirect_to public_orders_complete_path #thanksに遷移
+    session[:payment] = params[:payment]
+    if params[:select] == "select_address"
+      session[:address] = params[:address]
+    elsif params[:select] == "my_address"
+      session[:address] ="〒" +current_customer.post_code+current_customer.address+current_customer.last_name+current_customer.first_name
+    end
+    if session[:address].present? && session[:payment].present?
+      redirect_to orders_confirm_path
+    else
+      flash[:order_new] = "支払い方法と配送先を選択して下さい"
+      redirect_to order_complete_path
+    end
   end
 
   def index
@@ -44,6 +35,13 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @order_details = @order.order_details
+  end
+
+
+  private
+
+  def order_params
+  params.require(:order).permit(:customer_id, :order_detail_id, :total_price, :shipping_cost, :status, :postal_code, :address, :name)
   end
 
 end
