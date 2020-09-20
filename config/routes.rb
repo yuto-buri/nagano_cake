@@ -37,9 +37,9 @@ Rails.application.routes.draw do
   
   post 'orders/confirm' => 'orders#confirm', as: 'order_confirm'
   get 'orders/conplete' => 'orders#conplete', as: 'order_conplete'
-  
+
   get 'order_details/index'
-  
+
   resources :genres, only: [:index, :show] do
     resources :items, only: [:index, :show]
   end

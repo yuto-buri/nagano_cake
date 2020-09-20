@@ -1,2 +1,97 @@
-<h1>Orders#new</h1>
-<p>Find me in app/views/orders/new.html.erb</p>
+<h3 style="margin: 30px 0 40px 60px">
+    <span style="background-color: #EEEEEE;padding: 0px 20px">注文情報入力</span>
+</h3>
+	<h4>支払方法</h4>
+	<%= form_with(model: @order, local: true, url: {action: 'confirm'}) do |f| %>
+		<!-- enumで管理, {0: クレジットカード, 1: 銀行振込} -->
+	    <%= f.label :name, "クレジットカード" %>
+	    <%= f.radio_button :payment, 0 ,{checked: true} %>
+	    <br>
+	    <%= f.label :name, "銀行振込" %>
+	    <%= f.radio_button :payment, 1 %>
+
+		<h4>お届け先</h4>
+		<div class="row space">
+			<h3><strong><%= f.label :お届け先 %></strong></h3>
+		</div>
+		<!-- 自身の住所 -->
+		<div class="row">
+			<p>
+				<label><%= f.radio_button :address, 1, {checked: true} %>ご自身の住所</label><br>
+				<%= @address.postal_code %>
+				<%= @address.delivery %>
+				<%= @address.name %>
+			</p>
+		</div>
+		<!-- 登録済み住所 -->
+		  <div class="row space-sm">
+		    <p>
+		      <label><%= f.radio_button :address, 2, style: "display: inline-block" %>登録住所から選択</label><br>
+		      <%= f.collection_select :address, @address, :id, :address %>
+		    </p>
+		  </div>
+
+		  <!-- 新しい住所 -->
+		  <div class="row space-sm">
+		    <p><label><%= f.radio_button :address, 3 %>新しいお届け先</label></p>
+		  </div>
+		  <div class="row">
+		    <div class="col-lg-12">
+		      <%= f.fields_for :address do |f| %>
+		      <div class="row">
+		        <div class="col-lg-3">
+		          <strong>郵便番号(ハイフンなし)</strong>
+		        </div>
+		        <div class="col-lg-6">
+		          <%= f.text_field :postal_code, class: 'form-control' %>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="col-lg-3">
+		          <strong>住所</strong>
+		        </div>
+		        <div class="col-lg-6">
+		          <%= f.text_field :delivery, class: 'form-control' %>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="col-lg-3">
+		          <strong>宛名</strong>
+		        </div>
+		        <div class="col-lg-6">
+		          <%= f.text_field :name, class: 'form-control' %>
+		        </div>
+		      </div>
+		      <% end %>
+		    </div>
+		  </div>
+		<%= f.submit "確認画面へ進む", class:"btn btn-primary" %>
+	<% end %>
+
+
+
+<!--
+	t.integer "customer_id"
+    t.integer "order_detail_id"
+    t.integer "total_price"
+    t.integer "shipping_cost"
+    t.integer "status"
+    t.integer "payment"
+    t.string "postal_code"
+    t.string "address"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end -->
+
+  <!--   create_table "addresses", force: :cascade do |t|
+    t.integer "customer_id"
+    t.string "name"
+    t.string "postal_code"
+    t.string "delivery"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+ -->
+
