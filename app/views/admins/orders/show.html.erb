@@ -3,9 +3,12 @@
 <p>配送先</p><%=  %>
 <p>支払方法</p>
 <p>注文ステータス</p>
+<%= form_for @order do |f| %>
+<%= f.select :payment, Order.payments_i18n.invert, {prompt: "---"}, {class: "select__box__format"} %>
+<% end %>
 <br>
 
-<% form_with() do |f| %>
+
 	<table class = "table">
 		<thead>
 			<tr>
@@ -13,7 +16,7 @@
 				<th>単価（税込）</th>
 				<th>数量</th>
 				<th>小計</th>
-				<th>ステータス</th>
+				<th>製作ステータス</th>
 				<th colspan="1"></th>
 			</tr>
 		</thead>
@@ -23,10 +26,9 @@
 				<td><%= (@item.price * 1.1).floor %></td>
 				<td><%= @order.amount %></td>
 				<td><%= (@item.price * 1.1).floor * @order.amount %></td>
-				<td><%= f.select :status, [[""]]%></td>
 				<td><%= f.submit '更新' %></td>
 			</tr>
 		</tbody>
 	</table>
-<% end %>
+
 
