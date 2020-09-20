@@ -18,22 +18,10 @@ class Admins::OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
-    @order_details = OrderDetail.where(order_id: params[:id])
   end
 
   def update
-    order = Order.find(params[:id])
-    order.update(order_params)
-    order = Order.find(params[:id])
-    # 注文ステータス[入金確認]=>制作ステータス[製作待ち]
-    if order.status == "入金確認"
-      order.order_items.each do |order_item|
-      order_product.update(status: "製作待ち")
-      end
-    end
-    flash[:notice] = "You have updated status successfully."
-    redirect_to admin_order_path(order.id)
+
   end
 
 
