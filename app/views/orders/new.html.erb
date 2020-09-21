@@ -7,10 +7,10 @@
 	<%= form_with(model: @order, local: true, url: order_confirm_path) do |f| %>
 		<!-- enumで管理, {0: クレジットカード, 1: 銀行振込} -->
 	    <%= f.label :name, "クレジットカード" %>
-	    <%= f.radio_button :payment, 0 ,{checked: true} %>
+	    <%= f.radio_button :payment, :creditcard ,{checked: true} %>
 	    <br>
 	    <%= f.label :name, "銀行振込" %>
-	    <%= f.radio_button :payment, 1 %>
+	    <%= f.radio_button :payment, :transfer %>
 
 		<div class="row space">
 			<h3><strong><%= f.label :お届け先 %></strong></h3>

@@ -7,7 +7,17 @@ class OrdersController < ApplicationController
   end
 
   def confirm
+    @order = Order.new(order_params)
+    if params[:order][:address] == "1"
+      @my_address = Customer.find(current_customer.id)
+      @order.postal_code = @my_address.postal_code 
+      @order.address = @my_address.address 
+      order_last_name = @my_address.last_name
+      order_first_name = @my_address.first_name
+      @order.name = order_last_name + order_first_name
+    end
     @new = params[:order][:new_address][:postal_code]
+    @total_price = calculate(current_customer)
   end
 
   def complete
@@ -41,12 +51,12 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-  params.require(:order).permit(:customer_id, :order_detail_id, :total_price, :shipping_cost, :status, :postal_code, :address, :name)
+  params.require(:order).permit(:customer_id, :order_detail_id, :total_price, :shipping_cost, :payment, :status, :postal_code, :address, :name)
   end
 
   def calculate(customer)
     total_price = 0
-    user.cart_items.each do |cart_item|
+    customer.cart_items.each do |cart_item|
       total_price += cart_item.amount * cart_item.item.price
     end
     return (total_price * 1.1).floor
