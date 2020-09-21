@@ -1,2 +1,106 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div>
+      <h2>注文履歴詳細</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+
+      <div class="row">
+        <strong>注文情報</strong>
+      </div>
+
+      <div class="row">
+        <table>
+          <tbody>
+            <tr>
+              <td>注文日</td>
+              <td><%= @order.created_at.strftime("%Y-%m-%d") %></td>
+            </tr>
+
+            <tr>
+              <td>配送先</td>
+              <td><%= @order.address %></td>
+            </tr>
+
+            <tr>
+              <td>支払い方法</td>
+              <td><%= @order.payment %></td>
+            </tr>
+
+            <tr>
+              <td>ステータス</td>
+              <td><%= @order.status %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div>
+      <div class="row">
+        <strong>請求情報</strong>
+      </div>
+
+      <div class="row">
+        <table>
+          <tbody>
+            <tr>
+              <td>商品合計</td>
+              <td><%= @order.total_price  %></td>
+            </tr>
+
+            <tr>
+              <td>配送料</td>
+              <td><%= @order.shipping_cost %></td>
+            </tr>
+
+            <tr>
+              <td>ご請求額</td>
+              <td><%= @order.total_price + @order.shipping_cost %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <strong>注文内容</strong>
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>商品</th>
+            <th>単価(税込)</th>
+            <th>個数</th>
+            <th>小計</th>
+          </tr>
+        </thead>
+
+        <% @order_details.each do |d| %>
+        <tbody>
+          <tr>
+            <td><%= d.item_name %></td>
+            <td><%= (d.item_price * 1.1).floor %></td>
+            <td><%= d.amount %></td>
+            <td><%= ((d.item_price * d.amount) * 1.1).floor %></td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+
+    </div>
+  </div>
+
+</div>
