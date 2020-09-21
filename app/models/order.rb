@@ -4,7 +4,8 @@ class Order < ApplicationRecord
 		creditcard:0,
 		transfer:1
 	}
-	
+
+
 	has_many :order_items, dependent: :destroy
 	#中間テーブルを介して複数のプロダクトを持つ
 	has_many :products, :through => :order_items
