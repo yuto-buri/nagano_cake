@@ -15,10 +15,24 @@ class OrdersController < ApplicationController
       order_last_name = @my_address.last_name
       order_first_name = @my_address.first_name
       @order.name = order_last_name + order_first_name
+    elsif params[:order][:address] == "2"
+      @address = Address.find(params[:order][:id])
+      @order.name = @address.name
+      @order.address = @address.delivery
+      @order.postal_code = @address.postal_code
+    elsif params[:order][:address] == "3"
+      @order.name = params[:order][:new_address][:name]
+      @order.address = params[:order][:new_address][:delivery]
+      @order.postal_code = params[:order][:new_address][:postal_code]
+
     end
     @new = params[:order][:new_address][:postal_code]
     @total_price = calculate(current_customer)
   end
+
+
+
+
 
   def complete
   end

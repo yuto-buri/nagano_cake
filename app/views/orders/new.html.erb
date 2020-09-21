@@ -29,7 +29,7 @@
 		  <div class="row space-sm">
 		    <p>
 		      <label><%= f.radio_button :address, 2, style: "display: inline-block" %>登録住所から選択</label><br>
-		      <%= f.collection_select :delivery, Address.where(customer_id:current_customer.id), :id, :delivery %>
+		      <%= f.collection_select :id, Address.where(customer_id:current_customer.id), :id, :full_address %>
 		    </p>
 		  </div>
 
