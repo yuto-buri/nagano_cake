@@ -1,0 +1,6 @@
+ja:
+  enums:
+    order:
+      payment:
+        creditcard: クレジッドカード
+        transfer: 銀行振込

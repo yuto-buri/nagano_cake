@@ -1,2 +1,79 @@
-<h1>Orders#confirm</h1>
-<p>Find me in app/views/orders/confirm.html.erb</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="order-confirm">
+      <h2 class="ec-order-confirm-title">注文情報確認</h2>
+      <div class="flex">
+        <div class="confirm-products">
+          <div class= "col-xs-7">
+          <table class="table">
+            <thead>
+              
+              <tr class="active">
+                <th>商品名</th>
+                <th class="text-right">単価（税込）</th>
+                <th class="text-right">数量</th>
+                <th class="text-right">小計</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% current_customer.cart_items.each do |cart_item| %>
+              <tr>
+                <td><%= cart_item.item.name %></td>
+                <td class="text-right"><%= (cart_item.item.price * 1.1).floor %>円</td>
+                <td class="text-right"><%= cart_item.amount %></td>
+                <td class="text-right"><%= (cart_item.item.price * 1.1).floor * cart_item.amount %>円</td>
+              </tr>
+              <% end %>
+            </tbody>
+            
+          </table>
+          </div>
+        </div>
+        <div class="row confirm-prise">
+          <div class= "col-xs-3">
+          <table class="table">
+            
+            <tbody>
+              <tr>
+                <th class="active">送料</th>
+                <td class="text-right"><%= 800 %></td>
+              </tr>
+              <tr>
+                <th class="active">商品合計</th>
+                <td class="text-right"><%= @total_price %></td>
+              </tr>
+              <tr>
+                <th class="active">請求金額</th>
+                <td class="text-right"><%= @total_price + 800 %></td>
+              </tr>
+            </tbody>
+            
+          </table>
+          </div>
+        </div>
+      </div>
+      <div class="confirm-info row">
+        <table>
+          <tr>
+            <th class="col-xs-4">支払方法</th>
+            <td class="col-xs-8"><%= @order.payment_i18n %></td>
+          </tr>
+          <tr>
+            <th class="col-xs-4">お届け先</th>
+            <td class="col-xs-8">
+              <%= @order.postal_code %><%= @order.address %><br>
+              <%= @order.name %>
+              
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="comfirmation-btn-wrap">
+      	<%= form_for(@order, url: order_confirm_path) do |f| %>
+          <%= f.submit "購入を確定する", class:"btn btn-primary" %>
+        <%#= link_to "購入を確定する", orders_path(@order), method: :post, class:"btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

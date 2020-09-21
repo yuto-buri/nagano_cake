@@ -78,3 +78,4 @@ gem 'nokogiri'
 # デバッグ
 gem 'pry-rails'
 
+gem 'enum_help'

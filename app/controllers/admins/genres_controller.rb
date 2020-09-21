@@ -1,7 +1,6 @@
 class Admins::GenresController < ApplicationController
-  def edit
-    @genre = Genre.find(params[:id])
-  end
+
+  before_action :authenticate_admin!
 
   def index
     @genres = Genre.all
@@ -10,16 +9,25 @@ class Admins::GenresController < ApplicationController
 
   def create
     @genre = Genre.new(genre_params)
-    @genre.save
-    redirect_to admins_genres_path
+    if  @genre.save
+      redirect_to admins_genres_path
+    else
+      flash[:genres_created_error] = "ジャンル名を入力してください。"
+      redirect_to
+    end
+  end
+
+  def edit
+    @genre = Genre.find(params[:id])
   end
 
   def update
     @genre = Genre.find(params[:id])
     if @genre.update(genre_params)
-    redirect_to admins_genres_path
+      redirect_to admins_genres_path
     else
-      render :edit
+      flash[:genres_updated_error] = "ジャンル名を入力してください"
+      redirect_to edit_admins_genre_path
     end
   end
 

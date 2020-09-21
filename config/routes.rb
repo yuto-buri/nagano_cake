@@ -1,50 +1,52 @@
 Rails.application.routes.draw do
+  namespace :admins do
+    get 'homes/top'
+  end
+
+  resource :customers, only: [:show, :edit, :update] do
+    resources :addresses, only: [:index, :create, :edit, :update, :destroy]
+    resources :orders, only: [:new, :index, :create, :show]
+  end
+
   devise_for :customers, controllers: {
     registrations: 'customers/registrations',
     passwords: 'customers/passwords',
     sessions: 'customers/sessions'}
 
-    resources :customers, only: [:edit, :show, :update]
+  root 'homes#top'
+  get 'homes/about'
 
-    
   namespace :admins do
     get 'searches/search'
+    resources :items, only:[:index,:create, :new, :edit, :show, :update]
+    resources :orders, only:[:index, :create, :show, :update]
+    resources :genres, only:[:index, :create, :edit, :update]
+    resources :customers, only:[:index, :edit, :show, :update]
+    resources :order_details, only:[:index, :create, :show, :update]
   end
-  namespace :admins do
-    get 'items/edit'
-    get 'items/index'
-    get 'items/new'
-    get 'items/show'
+
+  resources :items, only: [:index, :show]
+  get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'customer_unsubscribe'
+  patch 'customers/withdraw' => 'customers#withdraw', as: 'customer_withdraw'
+
+  resources :cart_items, only: [:index, :create, :update, :destroy] do
+    collection do
+        delete 'destroy_all'
+    end
   end
-  namespace :admins do
-    get 'orders/index'
-    get 'orders/show'
-  end
-  namespace :admins do
-    get 'genres/edit'
-    get 'genres/index'
-  end
-  namespace :admins do
-    get 'customers/edit'
-    get 'customers/index'
-    get 'customers/show'
-  end
-  get 'items/index'
-  get 'items/show'
-  get 'orders/confirm'
-  get 'orders/index'
-  get 'orders/new'
-  get 'orders/show'
-  get 'orders/thanks'
+  
+  post 'orders/confirm' => 'orders#confirm', as: 'order_confirm'
+  get 'orders/complete' => 'orders#complete', as: 'order_complete'
+
   get 'order_details/index'
-  get 'genres/index'
-  get 'genres/show'
-  get 'customers/edit'
-  get 'customers/show'
-  get 'customers/withdraw'
-  get 'cart_items/index'
-  get 'addresses/edit'
-  get 'addresses/index'
-  devise_for :admins
+
+  resources :genres, only: [:index, :show] do
+    resources :items, only: [:index, :show]
+  end
+
+  devise_for :admins, controllers: {
+    registrations: 'admins/registrations',
+    passwords: 'admins/passwords',
+    sessions: 'admins/sessions'}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

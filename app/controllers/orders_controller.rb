@@ -1,49 +1,79 @@
 class OrdersController < ApplicationController
 
   def new
-    @address = current_customer.addresses
-    @address = Address.new
+    @address = Address.where(customer_id:current_customer.id)
+    @my_address = Customer.find(current_customer.id)
     @order = Order.new
   end
 
   def confirm
-    @orders = current_customer.orders
-      @total_price = calculate(current_customer)
+    @order = Order.new(order_params)
+    if params[:order][:address] == "1"
+      @my_address = Customer.find(current_customer.id)
+      @order.postal_code = @my_address.postal_code 
+      @order.address = @my_address.address 
+      order_last_name = @my_address.last_name
+      order_first_name = @my_address.first_name
+      @order.name = order_last_name + order_first_name
+    elsif params[:order][:address] == "2"
+      @address = Address.find(params[:order][:id])
+      @order.name = @address.name
+      @order.address = @address.delivery
+      @order.postal_code = @address.postal_code
+    elsif params[:order][:address] == "3"
+      @order.name = params[:order][:new_address][:name]
+      @order.address = params[:order][:new_address][:delivery]
+      @order.postal_code = params[:order][:new_address][:postal_code]
 
-      if  session[:address].length <8
-        @address = ShipAddress.find(session[:address])
-      end
+    end
+    @new = params[:order][:new_address][:postal_code]
+    @total_price = calculate(current_customer)
   end
+
+
+
+
 
   def complete
   end
 
   def create
-    @order = Order.new(order_params) #初期化代入
-    @order.customer_id = current_customer.id #自身のidを代入
-    @order.save #orderに保存
-
-    #order_itmemの保存
-    current_customer.cart_items.each do |cart_item| #カートの商品を1つずつ取り出しループ
-      @order_detail = OrderItem.new #初期化宣言
-      @order_detail.item_id = cart_item.item_id #商品idを注文商品idに代入
-      @order_detail.amount = cart_item.amount #商品の個数を注文商品の個数に代入
-      @order_detail.items_tax_included_price = (cart_item.item.unit_price_without_tax*1.1).floor #消費税込みに計算して代入
-      @order_detail.order_id =  @order.id #注文商品に注文idを紐付け
-      @order_detail.save #注文商品を保存
-    end #ループ終わり
-
-    current_customer.cart_items.destroy_all #カートの中身を削除
-    redirect_to public_orders_complete_path #thanksに遷移
+    session[:payment] = params[:payment]
+    if params[:select] == "select_address"
+      session[:address] = params[:address]
+    elsif params[:select] == "my_address"
+      session[:address] ="〒" +current_customer.post_code+current_customer.address+current_customer.last_name+current_customer.first_name
+    end
+    if session[:address].present? && session[:payment].present?
+      redirect_to orders_confirm_path
+    else
+      flash[:order_new] = "支払い方法と配送先を選択して下さい"
+      redirect_to order_complete_path
+    end
   end
 
   def index
-    @orders = Order.where(customer_id:current_customer)
+      @orders = Customer.find(current_customer.id).orders.page(params[:page]).per(10)
   end
 
   def show
     @order = Order.find(params[:id])
     @order_details = @order.order_details
+  end
+
+
+  private
+
+  def order_params
+  params.require(:order).permit(:customer_id, :order_detail_id, :total_price, :shipping_cost, :payment, :status, :postal_code, :address, :name)
+  end
+
+  def calculate(customer)
+    total_price = 0
+    customer.cart_items.each do |cart_item|
+      total_price += cart_item.amount * cart_item.item.price
+    end
+    return (total_price * 1.1).floor
   end
 
 end
