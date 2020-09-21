@@ -44,4 +44,12 @@ class OrdersController < ApplicationController
   params.require(:order).permit(:customer_id, :order_detail_id, :total_price, :shipping_cost, :status, :postal_code, :address, :name)
   end
 
+  def calculate(customer)
+    total_price = 0
+    user.cart_items.each do |cart_item|
+      total_price += cart_item.amount * cart_item.item.price
+    end
+    return (total_price * 1.1).floor
+  end
+
 end

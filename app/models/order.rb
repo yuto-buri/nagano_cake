@@ -8,7 +8,7 @@ class Order < ApplicationRecord
 
 	has_many :order_items, dependent: :destroy
 	#中間テーブルを介して複数のプロダクトを持つ
-	has_many :products, :through => :order_items
+	has_many :items, :through => :order_items
 	#オーダーアイテムを複数追加するためのメソッド
 	accepts_nested_attributes_for :order_items
 
