@@ -7,7 +7,6 @@
           <div class= "col-xs-7">
           <table class="table">
             <thead>
-              
               <tr class="active">
                 <th>商品名</th>
                 <th class="text-right">単価（税込）</th>
@@ -25,14 +24,12 @@
               </tr>
               <% end %>
             </tbody>
-            
           </table>
           </div>
         </div>
         <div class="row confirm-prise">
           <div class= "col-xs-3">
           <table class="table">
-            
             <tbody>
               <tr>
                 <th class="active">送料</th>
@@ -40,14 +37,13 @@
               </tr>
               <tr>
                 <th class="active">商品合計</th>
-                <td class="text-right"><%= @total_price %></td>
+                <td class="text-right"><%= @order.total_price %></td>
               </tr>
               <tr>
                 <th class="active">請求金額</th>
-                <td class="text-right"><%= @total_price + 800 %></td>
+                <td class="text-right"><%= @order.total_price + 800 %></td>
               </tr>
             </tbody>
-            
           </table>
           </div>
         </div>
@@ -63,14 +59,20 @@
             <td class="col-xs-8">
               <%= @order.postal_code %><%= @order.address %><br>
               <%= @order.name %>
-              
             </td>
           </tr>
         </table>
       </div>
       <div class="comfirmation-btn-wrap">
-      	<%= form_for(@order, url: order_confirm_path) do |f| %>
-          <%= f.submit "購入を確定する", class:"btn btn-primary" %>
+      	<%= form_for(@order, url: customers_orders_path) do |f| %>
+        <%= f.hidden_field :customer_id, value: current_customer.id %>
+        <%= f.hidden_field :total_price %>
+        <%= f.hidden_field :payment %>
+        <%= f.hidden_field :status %>
+        <%= f.hidden_field :postal_code %>
+        <%= f.hidden_field :address %>
+        <%= f.hidden_field :name %>
+        <%= f.submit "購入を確定する", class:"btn btn-primary" %>
         <%#= link_to "購入を確定する", orders_path(@order), method: :post, class:"btn btn-primary" %>
         <% end %>
       </div>

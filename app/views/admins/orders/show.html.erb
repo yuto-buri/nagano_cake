@@ -1,14 +1,36 @@
-<p>注文履歴詳細</p>
-<p>購入者</p><%= @order.name, admins_customer_path(@order) %>
-<p>配送先</p><%=  %>
-<p>支払方法</p>
-<p>注文ステータス</p>
-<%= form_for @order do |f| %>
-<%= f.select :payment, Order.payments_i18n.invert, {prompt: "---"}, {class: "select__box__format"} %>
-<% end %>
-<br>
+<div class="container my-5">
+  <div class="row">
+    <h2>注文履歴詳細</h2>
+  </div>
 
+<div class="row">
+	<table>
+		<br>
+          <tr>
+            <th class="col-xs-4">購入者</th>
+            <td class="col-xs-8"><%= @order.customer.last_name %><%= @order.customer.first_name %></td>
+          </tr>
+          <tr>
+            <th class="col-xs-4">配送先</th>
+            <td class="col-xs-8"><%= @order.postal_code %><%= @order.address %><br>
+            	<%= @order.name %></td>
+          </tr>
+          <tr>
+            <th class="col-xs-4">支払方法</th>
+            <td class="col-xs-8"><%= @order.payment_i18n %></td>
+          </tr>
+          <tr>
+            <th class="col-xs-4">注文ステータス</th>
+            <td class="col-xs-8">
 
+            	<%= form_for (@order), url: admins_order_path(@order) do |f| %>
+                <%= f.select :status, [["入金待ち", "入金待ち"], ["入金確認","入金確認"],["製作中","製作中"],["発送準備中","発送準備中"],["発送済み","発送済み"]], class: "form-control" %>
+                <%= f.submit "更新", class: "btn btn-primary btn-sm" %>
+                <% end %>
+            </td>
+          </tr>
+    </table>
+    <br>
 	<table class = "table">
 		<thead>
 			<tr>
@@ -21,13 +43,6 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td><%= @item.name%></td>
-				<td><%= (@item.price * 1.1).floor %></td>
-				<td><%= @order.amount %></td>
-				<td><%= (@item.price * 1.1).floor * @order.amount %></td>
-				<td><%= f.submit '更新' %></td>
-			</tr>
 		</tbody>
 	</table>
 
