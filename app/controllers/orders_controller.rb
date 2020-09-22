@@ -10,8 +10,8 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     if params[:order][:address] == "1"
       @my_address = Customer.find(current_customer.id)
-      @order.postal_code = @my_address.postal_code 
-      @order.address = @my_address.address 
+      @order.postal_code = @my_address.postal_code
+      @order.address = @my_address.address
       order_last_name = @my_address.last_name
       order_first_name = @my_address.first_name
       @order.name = order_last_name + order_first_name
