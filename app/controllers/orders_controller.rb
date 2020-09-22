@@ -27,7 +27,8 @@ class OrdersController < ApplicationController
 
     end
     @new = params[:order][:new_address][:postal_code]
-    @total_price = calculate(current_customer)
+    @order.total_price = calculate(current_customer)
+    @order.status = "入金待ち"
   end
 
 
@@ -38,22 +39,23 @@ class OrdersController < ApplicationController
   end
 
   def create
-    session[:payment] = params[:payment]
-    if params[:select] == "select_address"
-      session[:address] = params[:address]
-    elsif params[:select] == "my_address"
-      session[:address] ="〒" +current_customer.post_code+current_customer.address+current_customer.last_name+current_customer.first_name
+    @order = Order.new(order_params)
+    @order.save
+    current_customer.cart_items.each do |cart_item|
+      @order_detail = OrderDetail.new
+      @order_detail.item_id = cart_item.item_id
+      @order_detail.order_id = @order.id
+      @order_detail.amount = cart_item.amount
+      @order_detail.making_status = 0
+      @order_detail.price = (cart_item.item.price * cart_item.amount * 1.1).floor
+      @order_detail.save
     end
-    if session[:address].present? && session[:payment].present?
-      redirect_to orders_confirm_path
-    else
-      flash[:order_new] = "支払い方法と配送先を選択して下さい"
-      redirect_to order_complete_path
-    end
+    current_customer.cart_items.delete_all
+    redirect_to order_complete_path
   end
 
   def index
-      @orders = Customer.find(current_customer.id).orders.page(params[:page]).per(10)
+    @orders = Customer.find(current_customer.id).orders.page(params[:page]).per(10)
   end
 
   def show
@@ -65,7 +67,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-  params.require(:order).permit(:customer_id, :order_detail_id, :total_price, :shipping_cost, :payment, :status, :postal_code, :address, :name)
+    params.require(:order).permit(:customer_id, :total_price, :shipping_cost, :payment, :status, :postal_code, :address, :name)
   end
 
   def calculate(customer)
