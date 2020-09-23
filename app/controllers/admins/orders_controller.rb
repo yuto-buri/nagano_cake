@@ -19,12 +19,12 @@ class Admins::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @order_details = @order.order_details
   end
 
   def update
     order = Order.find(params[:id])
     order.update(order_params)
-    order = Order.find(params[:id])
     # 注文ステータス[入金確認]=>制作ステータス[製作待ち]
     if order.status == "入金確認"
       order.order_details.each do |order_item|
@@ -43,6 +43,6 @@ class Admins::OrdersController < ApplicationController
   end
 
   def order_detail_params
-    params.require(:order_detail).permit(:status)
+    params.require(:order_detail).permit(:making_status)
   end
 end
