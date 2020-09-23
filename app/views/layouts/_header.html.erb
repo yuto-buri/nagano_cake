@@ -1,12 +1,14 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
 	<div class="container">
     	<nav class='nav navbar-nav navbar-left' >
-      		<span>nagano cake</span>
+      		<%= link_to root_path do %>
+			<%= attachment_image_tag @item, :image, :fill, 70, 70, format: "png", fallback: 'cake.png', size: '70x70' %>
+      		<% end %>
   		</nav>
   	<nav>
       	<ul class="nav navbar-nav navbar-right">
         	<% if admin_signed_in? %>
-				<div class="admin-message">管理者としてログインしています</div>
+				<div class="admin-message", style="color:white">管理者としてログインしています</div>
 				<li class="nav-item"><%= link_to '商品一覧', admins_items_path, class: 'nav-link' %></li>
 				<li class="nav-item"><%= link_to '会員一覧', admins_customers_path, class: 'nav-link' %></li>
 				<li class="nav-item"><%= link_to '注文履歴一覧', admins_orders_path, class: 'nav-link' %></li>
@@ -14,6 +16,7 @@
 				<li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'nav-link' %></li>
 				<!-- 顧客 -->
 			<% elsif customer_signed_in? %>
+			<div class="admin-message", style="color:white">ようこそ、<%= current_customer.last_name %><%= current_customer.first_name %>さん!</div>
 				<li class="nav-item"><%= link_to 'マイページ', customers_path, class: 'nav-link' %></li>
 				<li class="nav-item"><%= link_to '商品一覧', items_path, class: 'nav-link' %></li>
 				<li class="nav-item"><%= link_to 'カート', cart_items_path, class: 'nav-link' %></li>

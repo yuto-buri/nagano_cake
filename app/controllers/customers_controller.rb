@@ -23,7 +23,7 @@ class CustomersController < ApplicationController
     @customer = current_customer
     @customer.update(is_deleted: true)
     reset_session
-    redirect_to items_path, info: 'ありがとうございました。またのご利用を心よりお待ちしております。'
+    redirect_to root_path, info: 'ありがとうございました。またのご利用を心よりお待ちしております。'
   end
 
   private

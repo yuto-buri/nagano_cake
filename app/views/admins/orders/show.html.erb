@@ -3,47 +3,98 @@
     <h2>注文履歴詳細</h2>
   </div>
 
-<div class="row">
-	<table>
-		<br>
-          <tr>
-            <th class="col-xs-4">購入者</th>
-            <td class="col-xs-8"><%= @order.customer.last_name %><%= @order.customer.first_name %></td>
-          </tr>
-          <tr>
-            <th class="col-xs-4">配送先</th>
-            <td class="col-xs-8"><%= @order.postal_code %><%= @order.address %><br>
-            	<%= @order.name %></td>
-          </tr>
-          <tr>
-            <th class="col-xs-4">支払方法</th>
-            <td class="col-xs-8"><%= @order.payment_i18n %></td>
-          </tr>
-          <tr>
-            <th class="col-xs-4">注文ステータス</th>
-            <td class="col-xs-8">
 
-            	<%= form_for (@order), url: admins_order_path(@order) do |f| %>
-                <%= f.select :status, [["入金待ち", "入金待ち"], ["入金確認","入金確認"],["製作中","製作中"],["発送準備中","発送準備中"],["発送済み","発送済み"]], class: "form-control" %>
-                <%= f.submit "更新", class: "btn btn-primary btn-sm" %>
-                <% end %>
-            </td>
-          </tr>
+	<table>
+    <tr>
+      <th class="col-xs-4">購入者</th>
+      <td class="col-xs-8">
+      <%= link_to ("#{@order.customer.last_name} #{@order.customer.first_name}"), admins_customer_path(@order.customer) %>
+      </td>
+    </tr>
+    <tr>
+      <th class="col-xs-4">配送先</th>
+      <td class="col-xs-8"><%= @order.postal_code %><%= @order.address %><br>
+      	<%= @order.name %></td>
+    </tr>
+    <tr>
+      <th class="col-xs-4">支払方法</th>
+      <td class="col-xs-8"><%= @order.payment_i18n %></td>
+    </tr>
+    <tr>
+      <th class="col-xs-4">注文ステータス</th>
+      <td class="col-xs-8">
+
+      	<%= form_for (@order), url: admins_order_path(@order) do |f| %>
+          <%= f.select :status, [["入金待ち", "入金待ち"], ["入金確認","入金確認"],["製作中","製作中"],["発送準備中","発送準備中"],["発送済み","発送済み"]], class: "form-control" %>
+          <%= f.submit "更新", class: "btn btn-primary btn-sm" %>
+          <% end %>
+      </td>
+    </tr>
     </table>
-    <br>
-	<table class = "table">
-		<thead>
-			<tr>
-				<th>商品名</th>
-				<th>単価（税込）</th>
-				<th>数量</th>
-				<th>小計</th>
-				<th>製作ステータス</th>
-				<th colspan="1"></th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+
+  <div class="row">
+    <div class="col-xs-7">
+      <table class = "table">
+    		<thead>
+    			<tr>
+    				<th>商品名</th>
+    				<th>単価（税込）</th>
+    				<th>数量</th>
+    				<th>小計</th>
+    				<th>製作ステータス</th>
+    				<th colspan="1"></th>
+    			</tr>
+    		</thead>
+    		<tbody>
+          <% @order_details.each do |order|%>
+          <tr>
+            <th><%= order.item.name %></th>
+            <th><%= (order.item.price * 1.1).floor %></th>
+            <th><%= order.amount %></th>
+            <th><%= ((order.item.price * order.amount) * 1.1).floor %></th>
+            <th>
+              <%= form_for (order), url: admins_order_detail_path(order) do |f| %>
+                <%= f.select :making_status, [["製作不可", "製作不可"], ["製作待ち","製作待ち"],["製作中","製作中"],["製作完了","製作完了"]], class: "form-control" %>
+                <%= f.submit "更新", class: "btn btn-primary btn-sm" %>
+              <% end %>
+            </th>
+          </tr>
+          <% end %>
+    		</tbody>
+    	</table>
+    </div>
+    <div class="d-flex align-items-end">
+      <div class="col-xs-3 col-xs-offset-1">
+        <table>
+            <tr>
+              <th class="col-xs-6">商品合計</th>
+              <td class="col-xs-6 text-right"><%= @order.total_price %>円</td>
+            </tr>
+            <tr>
+              <th class="col-xs-6">送料</th>
+              <td class="col-xs-6 text-right">800円</td>
+            </tr>
+            <tr>
+              <th class="col-xs-6">請求金額合計</th>
+              <td class="col-xs-6 text-right"><%= @order.total_price + 800 %>円</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
