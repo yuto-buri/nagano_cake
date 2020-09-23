@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
     end
     @new = params[:order][:new_address][:postal_code]
     @order.total_price = calculate(current_customer)
-    @order.status = "入金待ち"
+    
   end
 
 
