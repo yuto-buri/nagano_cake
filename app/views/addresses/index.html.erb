@@ -6,8 +6,8 @@
 <%= f.submit '登録する' %>
 <% end %>
 
+<div class="offset-1 col-xs-7">
 
-<% @addresses.each do |address| %>
 <table class = "table">
 	<thead>
 		<tr>
@@ -18,15 +18,18 @@
 		</tr>
 	</thead>
 	<tbody>
+	<% @addresses.each do |address| %>
 		<tr>
 			<td><%= address.postal_code %></td>
 			<td><%= address.delivery %></td>
 			<td><%= address.name %></td>
 			<td><%= link_to '編集する', edit_customers_address_path(address) %></td>
 		</tr>
+		<% end %>
 	</tbody>
 </table>
-<% end %>
+</div>
+
 
 
 
