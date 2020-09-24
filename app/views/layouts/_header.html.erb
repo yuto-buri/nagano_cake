@@ -2,7 +2,7 @@
 	<div class="container">
     	<nav class='nav navbar-nav navbar-left' >
       		<%= link_to root_path do %>
-			<%= attachment_image_tag @item, :image, :fill, 70, 70, format: "png", fallback: 'cake.png', size: '70x70' %>
+      		<%= image_tag'cake.png', :size => '70x70' %>
       		<% end %>
   		</nav>
   	<nav>

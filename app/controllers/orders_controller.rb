@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
     @address = Address.where(customer_id:current_customer.id)
     @my_address = Customer.find(current_customer.id)
     @order = Order.new
+    @addresses = current_customer.addresses
   end
 
   def confirm
@@ -24,7 +25,6 @@ class OrdersController < ApplicationController
       @order.name = params[:order][:new_address][:name]
       @order.address = params[:order][:new_address][:delivery]
       @order.postal_code = params[:order][:new_address][:postal_code]
-
     end
     @new = params[:order][:new_address][:postal_code]
     @order.total_price = calculate(current_customer)
@@ -50,6 +50,17 @@ class OrdersController < ApplicationController
       @order_detail.price = (cart_item.item.price * cart_item.amount * 1.1).floor
       @order_detail.save
     end
+    #address = current_customer.addresses.new
+    #address.name = @order.name
+    #address.delivery = @order.address
+    #address.postal_code = @order.postal_code
+    #address.save
+
+    address = current_customer.addresses.new(name: @order.name, delivery: @order.address, postal_code: @order.postal_code)
+    unless current_customer.address_posted?(address)
+      address.save
+    end
+
     current_customer.cart_items.delete_all
     redirect_to order_complete_path
   end
