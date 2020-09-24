@@ -1,5 +1,5 @@
 <p>配送先登録/一覧</p>
-<%= form_with(model: @address, url: customers_addresses_path) do |f| %>
+<%= form_for(@address, url: customers_addresses_path) do |f| %>
 <p>郵便番号（ハイフンなし）</p> <%= f.text_field :postal_code %>
 <p>住所</p> <%= f.text_field :delivery %>
 <p>宛名</p> <%= f.text_field :name %>
@@ -7,7 +7,6 @@
 <% end %>
 
 
-<% @addresses.each do |address| %>
 <table class = "table">
 	<thead>
 		<tr>
@@ -18,15 +17,18 @@
 		</tr>
 	</thead>
 	<tbody>
+
 		<tr>
 			<td><%= address.postal_code %></td>
 			<td><%= address.delivery %></td>
 			<td><%= address.name %></td>
 			<td><%= link_to '編集する', edit_customers_address_path(address) %></td>
+		<% end %>
 		</tr>
+		<% end %>
 	</tbody>
 </table>
-<% end %>
+
 
 
 
