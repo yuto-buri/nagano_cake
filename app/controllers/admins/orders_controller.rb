@@ -23,22 +23,18 @@ class Admins::OrdersController < ApplicationController
   end
 
   def update
-    order = Order.find(params[:id])
-    orders = Order.all
-    order_details = order.order_details
-    order.update(order_params)
+    @order = Order.find(params[:id])
+    @orders = Order.all
+    order_details = @order.order_details
+    @order.update(order_params)
     # 注文ステータス[入金確認]=>制作ステータス[製作待ち]
-    if order.status == "入金確認"
-      order.order_details.each do |order_item|
+    if @order.status == "入金確認"
+      @order.order_details.each do |order_item|
         order_item.update(making_status: "製作待ち")
       end
-    elsif params[:order_details][:making_status] == "製作中"
-      order.update(status: "製作中")
-    elsif params[:order_details][:making_status] == "製作完了"
-        order.update(status: "発送待ち")
     end
     flash[:notice] = "You have updated status successfully."
-    redirect_to admins_order_path(order.id)
+    redirect_to admins_order_path(@order.id)
   end
 
 
