@@ -9,4 +9,8 @@ class Customer < ApplicationRecord
     def active_for_authentication?
     	super && (self.is_deleted == false)
 	end
+
+  def address_posted?(address)
+    self.addresses.where(name: address.name, postal_code: address.postal_code, delivery: address.delivery).exists?
+  end
 end
