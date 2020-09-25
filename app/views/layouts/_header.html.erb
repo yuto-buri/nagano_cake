@@ -5,16 +5,10 @@
       		<%= image_tag'nagano.png', :size => '90x90' %>
       		<% end %>
   		</nav>
-	
   	<nav>
 		
       	<ul class="nav navbar-nav navbar-right">
-				<li class="search-form">
-    　　<%= form_tag(search_path, method: :get) do %>
-      　<%= text_field_tag 'search[content]' %>
-      　<%= submit_tag '商品検索' %>
-    　  <% end %>
-       </li>
+				
         	<% if admin_signed_in? %>
 				<div class="admin-message", style="color:white">管理者としてログインしています</div>
 				<li class="nav-item"><%= link_to '商品一覧', admins_items_path, class: 'nav-link' %></li>
@@ -36,6 +30,12 @@
 				<li class="nav-item" ><%= link_to '新規登録', new_customer_registration_path, class: 'nav-link' %></li>
 				<li class="nav-item"><%= link_to 'ログイン', new_customer_session_path, class: 'nav-link' %></li>
 			<% end %>
+			<li class="search-form">
+    　　<%= form_tag(search_path, method: :get) do %>
+      　<%= text_field_tag 'search[content]' %>
+      　<%= submit_tag '商品検索' %>
+    　  <% end %>
+       </li>
       	</ul>
   		</nav>
 			
