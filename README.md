@@ -117,6 +117,7 @@ InstagramのDMやメールで通販の注⽂を受けていたが、情報管理
 
 - HTML
 - CSS
+- JavaScript
 - Ruby
 - フレームワーク
   - Ruby on Rails
