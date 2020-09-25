@@ -1,7 +1,7 @@
 <%= flash[:alert] %>
 <%= flash[:error] %>
 <div class = "registration">
-  <p>会員の方はこちらからログイン</p>
+  <h3><span class="contents_title">会員の方はこちらからログイン</span></h3>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email, "メールアドレス" %><br />
@@ -18,7 +18,7 @@
   <div class="actions">
     <%= f.submit "ログイン" %>
   </div>
-  <p>登録がお済みでない方は</p>
+  <h3><span class="contents_title">登録がお済みでない方は</span></h3>
 
 <%= link_to 'こちら', new_customer_registration_path %>　から新規登録を行ってください。
 

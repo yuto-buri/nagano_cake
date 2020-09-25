@@ -3,12 +3,12 @@
 		<!-- genres/indexから　トップページ、商品一覧、商品詳細で呼び出す予定 -->
 <div class="col-sm-9">
 	<div class="page-header m-0">
-	<h1>
+	<h2>
 		<% if params[:genre_id] %>
             <%= @genre.name %>一覧
           <% else %>
             商品一覧
-          <% end %> <small>(全<%= @items.count %>件)</small></h1>
+          <% end %> <small>(全<%= @items.count %>件)</small></h2>
 </div>
 
 <div class="container">

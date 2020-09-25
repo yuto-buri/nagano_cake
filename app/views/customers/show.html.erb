@@ -1,5 +1,5 @@
-<p>マイページ</p>
-<p class = "mypage">登録情報</p>　<%= link_to '編集する', edit_customers_path, class:"btn btn-primary col-xs-1" %> <%= link_to 'パスワードを変更する', edit_customer_password_path, class:"btn btn-primary col-xs-2" %>
+<h2><span class="contents_title">マイページ</span></h2>
+<h4 class = "mypage">登録情報</h4>　<%= link_to '編集する', edit_customers_path, class:"btn btn-primary col-xs-1" %> <%= link_to 'パスワードを変更する', edit_customer_password_path, class:"btn btn-primary col-xs-2" %>
 
 <table class = "table">
 
@@ -32,5 +32,5 @@
 		</tbody>
 </table>
 
-<p class = "mypage">配送先</p><p><%= link_to '一覧を見る', customers_addresses_path, class:"btn btn-primary col-xs-1.5" %></p><br>
-<p class = "mypage">注文履歴</p><p><%= link_to '一覧を見る', customers_orders_path, class:"btn btn-primary col-xs-1.5" %></p>
+<h4 class = "mypage">配送先</p><p><%= link_to '一覧を見る', customers_addresses_path, class:"btn btn-primary col-xs-1.5" %></h4><br>
+<h4 class = "mypage">注文履歴</p><p><%= link_to '一覧を見る', customers_orders_path, class:"btn btn-primary col-xs-1.5" %></h4>
