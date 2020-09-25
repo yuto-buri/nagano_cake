@@ -1,8 +1,8 @@
 
 	<div class="row">
-    	<h3 style="margin: 30px 30px 40px 30px">
-    		<span style="background-color: #EEEEEE;padding: 0px 20px"><%= "#{@customer.last_name}#{@customer.first_name}" %>さんの会員情報編集</span>
-    	</h3>
+    	<h2>
+    		<span class="contents_title"><%= "#{@customer.last_name}#{@customer.first_name}" %>さんの会員情報編集</span>
+    	</h2>
   </div>
   <%= form_with(model:@customer, url: admins_customer_path(@customer), local: true, class: 'container') do |f| %>
 
