@@ -48,5 +48,7 @@ Rails.application.routes.draw do
     registrations: 'admins/registrations',
     passwords: 'admins/passwords',
     sessions: 'admins/sessions'}
+
+  get '/search', to: 'search#search'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
