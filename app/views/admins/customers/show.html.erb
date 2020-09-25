@@ -1,11 +1,11 @@
 <div class="container my-5">
   <div class="row">
-    <h2><%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細</h2>
+    <h2><span class="contents_title"><%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細</span></h2>
   </div>
   <br>
   <div class="row mt-3">
     <div class="offset-sm-1 col-sm-7">
-      <table class="table table-borderless">
+      <table class="table">
         <tbody>
           <tr>
             <td>顧客ID</td>
@@ -47,7 +47,7 @@
           </tr>
 
           <tr>
-            <td>メールアドレス</td>
+            <td class="col-sm-3">メールアドレス</td>
             <td><%= @customer.email %></td>
           </tr>
         </tbody>

@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1">
 
-			<h2>ジャンル一覧・追加</h2>
+			<h2><span class="contents_title">ジャンル一覧・追加</span></h2>
 			<br>
 			<!-- error-message -->
 			<% if @genre.errors.any? %>
@@ -25,13 +25,13 @@
 			        <%= f.radio_button :is_active, :true %>
 			        <%= f.label :name, "無効" %>
 			        <%= f.radio_button :is_active, :false %>
-					<%= f.submit '追加', class:"btn btn-primary" %>
+					<%= f.submit '追加', class:"btn btn-info" %>
 				<% end %>
 			</div>
 			<br>
 			<!-- genre index -->
 			<table class="table genre-index">
-				<thead>
+				<thead class="contents_title">
 					<tr>
 						<th>ジャンル</th>
 						<th>状態</th>
@@ -47,7 +47,7 @@
 						<% else %>
 						<td><%= "無効" %></td>
 						<% end %>
-						<td><%= link_to '編集する', edit_admins_genre_path(genre.id), class:"btn btn-success" %></td>
+						<td><%= link_to '編集する', edit_admins_genre_path(genre.id), class:"btn btn-primary" %></td>
 					</tr>
 					<% end %>
 				</tbody>
