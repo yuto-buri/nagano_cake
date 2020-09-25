@@ -1,5 +1,7 @@
 # ながのCAKE
 
+![無題14 2](https://user-images.githubusercontent.com/69070243/94248137-00dee000-ff59-11ea-8540-e0fcad4ff0b6.jpg)
+
 ⻑野県にある⼩さな洋菓⼦店「ながのCAKE」の商品を通販するためのECサイトです。
 
 ## 案件の背景
