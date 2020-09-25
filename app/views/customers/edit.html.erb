@@ -1,6 +1,6 @@
 <div class="col-lg-9 offset-lg-3 offset-2">
   <div class="row">
-    <h3>登録情報編集</h3>
+    <h3><span class="contents_title">登録情報編集</span></h3>
   </div>
 
   <div class='row'>
@@ -74,12 +74,12 @@
       </div>
     </div>
 
-    <div class="action space-sm row">
-        <div class="col-lg-2 offset-lg-8">
+    <div class="row", style="margin-left: 375px;">
+        <div class="col-lg-3">
           <%= f.submit "編集内容を保存する", class:"btn btn-success btn-block" %>
         </div>
-        <div class="col-lg-2">
-          <%= link_to '退会する', customer_unsubscribe_path, class:'btn btn-danger'  %>
+        <div class="col-lg-2", style="margin-left: 85px;">
+          <%= link_to '退会する', customer_unsubscribe_path, class:'btn btn-danger' %>
         </div>
     </div>
 
