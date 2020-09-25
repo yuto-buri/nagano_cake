@@ -9,9 +9,11 @@
 			購入には会員登録が必要になります。
 		</p>
 	</div>
-		<h3>オススメ商品</h3>
-		<div class="container">
-			<div class="col-sm-9">
+	<br>
+	<div class="row">
+	<div class="container">
+	<div class="col-sm-9">
+		<h2>オススメ商品</h2>		
 			<% @items.each do |item| %>
 				<div class="col-xs-3 mt-3"> <!--ひとつのブロックをラップしてカラムを指定する-->
 				<%= link_to item_path(item) do %><!--それをeach文で回す-->
@@ -28,5 +30,6 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </div>
