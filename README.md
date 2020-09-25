@@ -1,6 +1,6 @@
 # ながのCAKE
 
-無題14 2.jpg
+https://infratop-dwc-team.slack.com/files/U019RB66Y2K/F01AYK7JUGP/______14_2.jpg
 
 ⻑野県にある⼩さな洋菓⼦店「ながのCAKE」の商品を通販するためのECサイトです。
 
