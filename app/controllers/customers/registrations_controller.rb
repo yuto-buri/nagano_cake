@@ -13,7 +13,7 @@ class Customers::RegistrationsController < Devise::RegistrationsController
     @customer = Customer.new(sign_up_params)
     unless @customer.valid?
       flash.now[:alert] = @customer.errors.full_messages
-      render "devise/registrations/new" and return
+      render "new" and return
     end
     @customer[:is_deleted] = false
     @customer.save
