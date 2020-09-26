@@ -3,25 +3,25 @@ Genre.create!(
     {
       id: 1,
       name: 'ケーキ',
-      validity: true
+      is_active: true
     },
 
     {
       id: 2,
       name: '焼き菓子',
-      validity: true
+      is_active: true
     },
 
     {
       id: 3,
       name: 'キャンディ',
-      validity: true
+      is_active: true
     },
 
     {
       id: 4,
       name: 'プリン',
-      validity: true
+      is_active: true
     },
   ]
   )
