@@ -80,3 +80,7 @@ gem 'nokogiri'
 gem 'pry-rails'
 
 gem 'enum_help'
+gem 'rails-i18n'
+
+
+
