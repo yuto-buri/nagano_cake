@@ -2,7 +2,13 @@
   <div class="row">
     <h3><span class="contents_title">登録情報編集</span></h3>
   </div>
-
+  <% if @customer.errors.any? %>
+      <ul>
+        <% @customer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+  <% end %>
   <div class='row'>
     <%= form_with(model: @customer, url: customers_path, local: true, class: 'container') do |f| %>
 

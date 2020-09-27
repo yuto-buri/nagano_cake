@@ -22,11 +22,16 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    @cart_item = current_customer.cart_items.new(cart_item_params)
-    if @cart_item.save
-      redirect_to cart_items_path
+    if current_customer
+      @cart_item = current_customer.cart_items.new(cart_item_params)
+      if @cart_item.save
+        redirect_to cart_items_path
+      else
+        redirect_to items_path
+      end
     else
-      redirect_to items_path
+      flash[:alert] = "※商品をカートに入れる際はログインもしくは会員登録が必要になります"
+      redirect_to new_customer_session_path
     end
   end
 
