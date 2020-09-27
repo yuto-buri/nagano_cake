@@ -1,0 +1,35 @@
+<div class="row">
+<!-- genres/indexから　トップページ、商品一覧、商品詳細で呼び出す予定 -->
+<%= render 'items/genrebox', genres: @genres %>
+<!-- genres/indexから　トップページ、商品一覧、商品詳細で呼び出す予定 -->
+	<div class="top_image col-lg-6">
+		<p style="color:white">ようこそNaganoCakeへ！<br>
+			このサイトは、ケーキ販売のECサイトになります。<br>
+			会員でない方も商品の閲覧はできますが、<br>
+			購入には会員登録が必要になります。
+		</p>
+	</div>
+	<br>
+	<div class="row">
+	<div class="container">
+	<div class="col-sm-9">
+		<h2>オススメ商品</h2>		
+			<% @items.each do |item| %>
+				<div class="col-xs-3 mt-3"> <!--ひとつのブロックをラップしてカラムを指定する-->
+				<%= link_to item_path(item) do %><!--それをeach文で回す-->
+				<%= attachment_image_tag item, :image, size: "150x150", format: 'jpeg', fallback: "no_image.jpg", class: 'rounded' %>
+			<% end %>
+			<br>
+			<strong class="red-border"><%= link_to item.name, item_path(item) %></strong>
+			<br>
+			<span class="ml-auto">¥<%= (item.price * 1.1).floor %></span><br>
+			</div>
+			<% end %>
+				<div class="text-right">
+				<%= link_to "もっと見る>" , items_path %>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>

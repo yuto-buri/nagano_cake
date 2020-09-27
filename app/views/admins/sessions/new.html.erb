@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row" style="margin-left: 200px;">
+    <h2><span class="contents_title">管理者ログイン</span></h2>
+  </div>
+<br>
+<br>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class='form-group row'>
+    <div class='col-sm-4 text-right'>
+      <h5><%= f.label :メールアドレス %></h5>
+    </div>
+    <div class='col-md-5'>
+      <%= f.text_field :email, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='form-group row'>
+    <div class='col-sm-4 text-right'>
+      <h5><%= f.label :パスワード %></h5>
+    </div>
+    <div class='col-md-5'>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class='action w-25 offset-lg-6 space text-center'>
+    <%= f.submit "ログイン", class:'btn btn-primary' %>
+    <% end %>
+  </div>

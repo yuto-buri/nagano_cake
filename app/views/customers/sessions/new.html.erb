@@ -1,0 +1,31 @@
+<h3><%= flash[:alert] %></h3>
+<%= flash[:error] %>
+<div class = "registration">
+  <h3><span class="contents_title">会員の方はこちらからログイン</span></h3>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%= f.label :email, "メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, "パスワード" %><br />
+    <%= f.password_field :password, autocomplete: "current-password" %>
+  </div>
+
+  <%= link_to "=> パスワードを忘れた方はこちら", new_password_path(resource_name) %><br />
+
+  <div class="actions">
+    <%= f.submit "ログイン" %>
+  </div>
+  <h3><span class="contents_title">登録がお済みでない方は</span></h3>
+
+<%= link_to 'こちら', new_customer_registration_path %>　から新規登録を行ってください。
+
+<% end %>
+
+
+
+</div>
+
+

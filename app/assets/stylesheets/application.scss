@@ -13,3 +13,33 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ * {
+	font-family: serif;
+}
+
+
+.btn {
+	margin-right: 10px;
+}
+
+.sign_up_form {
+	margin: 40px;
+}
+
+.form {
+	margin-left: 73px;
+}
+
+.contents_title {
+	background-color: #EEEEEE;
+	padding: 0px 20px;
+}
+
+.top_image {
+	background-image: url(michaela-baum-VnM6_liIRJ0-unsplash.jpg);
+	width: 700px;
+ 	height: 350px;
+	background-size: 100% 100%;
+}

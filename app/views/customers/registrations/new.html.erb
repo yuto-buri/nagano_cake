@@ -1,0 +1,129 @@
+    <div class="row">
+      <h3 class="col-sm-3 col-sm-offset-1"><span class="contents_title">新規会員登録</span></h3>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="sign_up_form">
+      <div class="form-group row">
+        <div class="col-sm-3">
+          <h5><%= f.label :名前 %></h5>
+        </div>
+          <div class="col-sm-9">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="row">
+                  <p class="col-sm-3">(姓)</p>
+                  <div class="col-sm-9"><%= f.text_field :last_name, autofocus: true, class: "form-control" %></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="row">
+                    <p class="col-sm-3">(名)</p>
+                    <div class="col-sm-9"><%= f.text_field :first_name, class: "form-control" %></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-3">
+          <h5><%= f.label :フリガナ %></h5>
+        </div>
+          <div class="col-sm-9">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="row">
+                  <p class="col-sm-3">(セイ)</p>
+                  <div class="col-sm-9"><%= f.text_field :last_name_kana, class: "form-control" %></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="row">
+                    <p class="col-sm-3">(メイ)</p>
+                    <div class="col-sm-9"><%= f.text_field :first_name_kana, class: "form-control" %></div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="form-group row">
+          <div class="col-sm-3">
+            <h5><%= f.label :メールアドレス %></h5>
+          </div>
+          <div class="col-sm-3 form">
+            <%= f.text_field :email, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-3">
+            <h5><%= f.label :郵便番号（ハイフンなし） %></h5>
+          </div>
+          <div class="col-sm-3 form">
+            <%= f.text_field :postal_code, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-3">
+            <h5><%= f.label :住所 %></h5>
+          </div>
+          <div class="col-sm-6 form">
+            <%= f.text_field :address, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-3">
+            <h5><%= f.label :電話番号（ハイフンなし） %></h5>
+          </div>
+          <div class="col-sm-3 form">
+            <%= f.text_field :telephone_number, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-3">
+            <h5><%= f.label :パスワード（６文字以上） %></h5>
+          </div>
+          <div class="col-sm-3 form">
+            <%= f.password_field :password, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-3">
+            <h5><%= f.label :パスワード確認用 %></h5>
+          </div>
+          <div class="col-sm-3 form">
+            <%= f.password_field :password_confirmation, class: "form-control" %>
+          </div>
+        </div>
+
+    <div class="row">
+        <div class="col-sm-2 col-sm-offset-5 action">
+          <%= f.submit "新規登録", class:"btn btn-success btn-block" %>
+        </div>
+    </div>
+  </div>
+
+    <% end %>
+
+  <div class="row">
+    <div class="col-sm-3 col-sm-offset-1">
+      <h3><span class="contents_title">既に登録済みの方</span></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3 col-sm-offset-2">
+      <h5><%= link_to "こちら　", new_customer_session_path  %>からログインしてください</h5>
+    </div>
+  </div>
