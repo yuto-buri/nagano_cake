@@ -5,7 +5,8 @@
 <div class="row">
 	<h3>
 		本日の注文件数
-		<%= link_to admins_orders_path do %><%= @today_count %>
+		<%= link_to admins_orders_path(flag: "top") do %><%= @today_count %>
 		<% end %>件
 	</h3>
+
 </div>

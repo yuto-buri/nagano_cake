@@ -1,14 +1,18 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
 	<div class="container">
     	<nav class='nav navbar-nav navbar-left' >
-      		<%= link_to root_path do %>
-      		<%= image_tag'nagano.png', :size => '90x90' %>
+      		<% if admin_signed_in? %>
+	      		<%= link_to admins_homes_top_path do %>
+	      		<%= image_tag'nagano.png', :size => '90x90' %>
+	      		<% end %>
+      		<% else %>
+	      		<%= link_to root_path do %>
+	      		<%= image_tag'nagano.png', :size => '90x90' %>
+	      		<% end %>
       		<% end %>
   		</nav>
   	<nav>
-		
       	<ul class="nav navbar-nav navbar-right">
-				
         	<% if admin_signed_in? %>
 				<div class="admin-message", style="color:white">管理者としてログインしています</div>
 				<li class="nav-item"><%= link_to '商品一覧', admins_items_path, class: 'nav-link' %></li>
@@ -38,6 +42,5 @@
        </li>
       	</ul>
   		</nav>
-			
 	</div>
 </header>
