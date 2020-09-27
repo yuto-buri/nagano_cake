@@ -4,8 +4,6 @@ class Admins::OrdersController < ApplicationController
   def index
     if params[:id] # 会員詳細から来た場合
       @orders = Customer.find(params[:id]).orders.page(params[:page]).per(10)
-    elsif params[:flag] == "top" # TOP本日受注分から来た場合
-      @orders = Order.where(created_at:  Time.zone.now.all_day).page(params[:page]).per(10)
     else
       @orders = Order.page(params[:page]).per(10)
     end
