@@ -136,7 +136,7 @@ InstagramのDMやメールで通販の注⽂を受けていたが、情報管理
 
 ## 作成者
 #### ゆとブリ
-- 本木拓海（https://github.com/takumimo）
-- 松尾侑宇大（https://github.com/matsuoyudai）
-- 下地貴大（https://github.com/takahiro0426）
-- 村田茜（https://github.com/mumumu330）
+- 本木拓海 https://github.com/takumimo
+- 松尾侑宇大 https://github.com/matsuoyudai
+- 下地貴大 https://github.com/takahiro0426
+- 村田茜 https://github.com/mumumu330
